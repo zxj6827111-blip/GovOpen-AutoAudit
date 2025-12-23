@@ -1,0 +1,10 @@
+{
+  "rule_pack_id": "suqian_dept_v1",
+  "name": "2026年宿迁市政务公开监测指标（部门）v1.0",
+  "region_tag": "宿迁",
+  "scope": "部门",
+  "version": "v1.0",
+  "generated_from": "2_2026年宿迁市政务公开监测指标（部门）v1.0(2).xls",
+  "generated_at": "2025-12-23T09:23:24",
+  "notes": "本规则包为“原子规则项”拆解版：按原文条款 1/2/3… 拆分；Class 4 标记为网站端不可直接判断。"
+}
