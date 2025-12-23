@@ -15,3 +15,11 @@
 - authoring/：指标编辑转化器（CLI优先）
 - sandbox/：可控测试靶场（网页模拟器）
 - platform/：平台服务端与 worker（任务/执行/规则引擎/导出）
+
+## Authoring CLI（MVP）
+在仓库根目录下执行，提供四个子命令：
+
+- `python -m authoring.cli convert <input> <rule_pack_id> <name> <region_tag> <scope> <version> <generated_from> [output_root]`：从 Excel/文本拆分原子规则，生成 `rulepacks/<rule_pack_id>/rulepack.json` 与 `rules.json`。
+- `python -m authoring.cli ai-suggest <rulepack_dir>`：为规则附加 AI 建议（仅写入 `suggestions` 字段，失败降级为空）。
+- `python -m authoring.cli validate <rulepack_dir>`：按 docs/10_INTERFACE_FREEZE.md 冻结约束输出 JSON 校验结果。
+- `python -m authoring.cli export <rulepack_dir> [--formats json csv yaml]`：导出多格式（YAML 需本地安装 pyyaml）。
