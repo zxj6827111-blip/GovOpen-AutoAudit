@@ -1,0 +1,10 @@
+{
+  "rule_pack_id": "suqian_demo_v1",
+  "name": "宿迁示例包",
+  "region_tag": "宿迁",
+  "scope": "部门",
+  "version": "v1.0",
+  "schema_version": "rule_spec_v0_2",
+  "generated_from": "示例csv",
+  "generated_at": "2025-12-23T13:19:27"
+}

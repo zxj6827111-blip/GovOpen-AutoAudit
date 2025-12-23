@@ -1,0 +1,105 @@
+[
+  {
+    "rule_id": "suqian_demo_v1---1",
+    "section": "一、主动公开",
+    "indicator": "制度公开",
+    "item_no": "1",
+    "text": "全面公开部门权力配置情况，依法公开职责职能、机构设置、办公地址、办公时间、联系方式、负责人姓名等信息，未公开的，扣0.2分。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": -0.2,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {},
+    "extractor": {},
+    "evaluator": {},
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": {
+      "prompt_version": "authoring_v1",
+      "suggested_class": 1,
+      "confidence": 0.5,
+      "suggested_check_type": "presence_or_timeliness",
+      "suggested_locator_keywords": [
+        "公开",
+        "机构"
+      ],
+      "suggested_required_elements": [],
+      "suggested_not_assessable_reason": ""
+    }
+  },
+  {
+    "rule_id": "suqian_demo_v1---2",
+    "section": "一、主动公开",
+    "indicator": "公开指南",
+    "item_no": "2",
+    "text": "公开政府信息公开指南，明确受理机构、办公地址、办公时间、联系方式等。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 0.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {},
+    "extractor": {},
+    "evaluator": {},
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": {
+      "prompt_version": "authoring_v1",
+      "suggested_class": 1,
+      "confidence": 0.5,
+      "suggested_check_type": "presence_or_timeliness",
+      "suggested_locator_keywords": [
+        "公开",
+        "指南",
+        "机构"
+      ],
+      "suggested_required_elements": [],
+      "suggested_not_assessable_reason": ""
+    }
+  },
+  {
+    "rule_id": "suqian_demo_v1---3",
+    "section": "一、主动公开",
+    "indicator": "依申请公开",
+    "item_no": "3",
+    "text": "畅通依申请公开受理渠道，提供电子邮件、网上申请等方式，并按规定答复。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 0.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {},
+    "extractor": {},
+    "evaluator": {},
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": {
+      "prompt_version": "authoring_v1",
+      "suggested_class": 1,
+      "confidence": 0.5,
+      "suggested_check_type": "presence_or_timeliness",
+      "suggested_locator_keywords": [
+        "公开",
+        "依申请"
+      ],
+      "suggested_required_elements": [],
+      "suggested_not_assessable_reason": ""
+    }
+  }
+]
