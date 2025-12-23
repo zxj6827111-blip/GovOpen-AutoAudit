@@ -1,0 +1,22 @@
+[
+    {
+        "section": "Active Disclosure",
+        "indicator": "Guide",
+        "item_no": "1.1",
+        "text": "Publish the guide with contact info.",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty"
+    },
+    {
+        "section": "Active Disclosure",
+        "indicator": "Budget",
+        "item_no": "2.1",
+        "text": "Publish annual budget report.",
+        "class": 2,
+        "check_type": "discovery",
+        "score": 5,
+        "severity": "penalty"
+    }
+]

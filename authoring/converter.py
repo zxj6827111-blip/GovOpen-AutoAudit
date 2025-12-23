@@ -109,12 +109,25 @@ def _load_rows_from_excel(path: str) -> Iterable[Dict[str, Any]]:
     return df.to_dict(orient="records")
 
 
+def _load_rows_from_json(path: str) -> Iterable[Dict[str, Any]]:
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict) and "rules" in data and isinstance(data["rules"], list):
+        return data["rules"]
+    # Fallback if structure is unknown but valid JSON
+    return []
+
+
 def load_rows(path: str) -> Iterable[Dict[str, Any]]:
     if not os.path.exists(path):
         raise ConversionError(f"Input file not found: {path}")
     lower = path.lower()
     if lower.endswith((".xlsx", ".xls")):
         return _load_rows_from_excel(path)
+    if lower.endswith(".json"):
+        return _load_rows_from_json(path)
     return _load_rows_from_text(path)
 
 
