@@ -1,0 +1,11 @@
+{
+  "rule_pack_id": "sandbox_mvp",
+  "name": "Sandbox MVP RulePack",
+  "region_tag": "sandbox",
+  "scope": "demo",
+  "version": "v1.0",
+  "schema_version": "rule_spec_v0_2",
+  "generated_from": "synthetic",
+  "generated_at": "2025-01-01T00:00:00",
+  "notes": "用于M1闭环与回归脚本"
+}
