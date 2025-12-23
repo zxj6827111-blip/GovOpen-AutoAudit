@@ -1,0 +1,24 @@
+[
+    {
+        "section": "Interaction",
+        "indicator": "Feedback",
+        "item_no": "1",
+        "text": "Respond to user feedback within 3 days.",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 3,
+        "severity": "penalty",
+        "schedule": "WEEKLY"
+    },
+    {
+        "section": "Interaction",
+        "indicator": "Polls",
+        "item_no": "2",
+        "text": "Conduct monthly polls.",
+        "class": 3,
+        "check_type": "quality_elements",
+        "score": 10,
+        "severity": "penalty",
+        "schedule": "MONTHLY"
+    }
+]

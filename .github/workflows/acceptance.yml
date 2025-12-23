@@ -32,6 +32,28 @@ jobs:
         # If setup.py exists, install in editable mode
         if [ -f setup.py ] || [ -f pyproject.toml ]; then pip install -e .; fi
 
+    - name: Author & Build Demo RulePacks (P1)
+      run: |
+        # Demo 1
+        python -m authoring.cli convert authoring/examples/region_demo_1.json region_demo_1 "Region Demo 1" "North" "City" v1.0 "manual" sandbox
+        python -m authoring.cli build sandbox/region_demo_1 rulepacks/region_demo_1
+        python -m authoring.cli validate rulepacks/region_demo_1
+        
+        # Demo 2
+        python -m authoring.cli convert authoring/examples/region_demo_2.json region_demo_2 "Region Demo 2" "South" "District" v1.0 "manual" sandbox
+        python -m authoring.cli build sandbox/region_demo_2 rulepacks/region_demo_2
+        python -m authoring.cli validate rulepacks/region_demo_2
+
+    - name: Import Demo RulePacks (Idempotency Check)
+      run: |
+        # Import Demo 1 (Twice)
+        python -m autoaudit.cli import_rulepack rulepacks/region_demo_1
+        python -m autoaudit.cli import_rulepack rulepacks/region_demo_1
+        
+        # Import Demo 2 (Twice)
+        python -m autoaudit.cli import_rulepack rulepacks/region_demo_2
+        python -m autoaudit.cli import_rulepack rulepacks/region_demo_2
+
     - name: Run Regression (M1 Loop)
       run: |
         python -m autoaudit.cli regression

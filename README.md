@@ -23,3 +23,17 @@
 - `python -m authoring.cli ai-suggest <rulepack_dir>`：为规则附加 AI 建议（仅写入 `suggestions` 字段，失败降级为空）。
 - `python -m authoring.cli validate <rulepack_dir>`：按 docs/10_INTERFACE_FREEZE.md 冻结约束输出 JSON 校验结果。
 - `python -m authoring.cli export <rulepack_dir> [--formats json csv yaml]`：导出多格式（YAML 需本地安装 pyyaml）。
+- `python -m authoring.cli build <workdir> <final_output>`：将工作目录构建为最终可发布 RulePack（P1 新增）。
+
+### P1 快速复现流程
+```bash
+# 1. 转换并构建示例
+python -m authoring.cli convert authoring/examples/region_demo_1.json region_demo_1 "Region Demo 1" "North" "City" v1.0 "manual" sandbox
+python -m authoring.cli build sandbox/region_demo_1 rulepacks/region_demo_1
+
+# 2. 校验 (Validation)
+python -m authoring.cli validate rulepacks/region_demo_1
+
+# 3. 平台导入 (Import)
+python -m autoaudit.cli import_rulepack rulepacks/region_demo_1
+```
