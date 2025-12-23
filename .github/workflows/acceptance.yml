@@ -1,0 +1,49 @@
+name: GovOpen Acceptance Gate
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  acceptance-gate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Check Freeze Contract (Data Plane)
+      run: |
+        # Ensure we have main ref
+        git fetch origin main || true
+        python scripts/check_freeze.py
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # If setup.py exists, install in editable mode
+        if [ -f setup.py ] || [ -f pyproject.toml ]; then pip install -e .; fi
+
+    - name: Run Regression (M1 Loop)
+      run: |
+        python -m autoaudit.cli regression
+
+    - name: Run Contract Acceptance Tests
+      run: |
+        python scripts/contract_acceptance_test.py
+
+    - name: Upload Evidence Artifacts
+      if: failure() || success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: regression-artifacts
+        path: runs/
+        retention-days: 5
