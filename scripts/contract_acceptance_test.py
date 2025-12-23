@@ -188,31 +188,49 @@ def check_idempotency() -> bool:
         return False
         
     # 3. Import (2nd time) - Should be clean/idempotent
+    # We expect status="already_imported" ideally, or at least NO "created"/"imported" status if it implies new data.
     proc_i2 = subprocess.run(cmd_import, capture_output=True, text=True, cwd=ROOT_DIR)
+    
+    # 3.1 Hard failure on process error
     if proc_i2.returncode != 0:
-        logger.error(f"Import 2 failed: {proc_i2.stderr}")
+        logger.error(f"Import 2 failed (process error): {proc_i2.stderr}")
         return False
         
-    # Check output for keywords
-    output_lower = proc_i2.stdout.lower() + proc_i2.stderr.lower()
-    # Expect "already_imported" or similar without errors
-    # Based on previous exploration: {"status": "already_imported", ...}
+    output_combined = proc_i2.stdout + proc_i2.stderr
     
-    if "already_imported" in output_lower:
-        logger.info("Idempotency confirmed: 'already_imported' status received.")
+    try:
+        # Try to parse stdout as JSON if the CLI outputs valid JSON on success
+        # The CLI output shown in previous steps was JSON.
+        result_json = json.loads(proc_i2.stdout.strip())
+        status = result_json.get("status")
+        
+        # Semantic check: clearly "already_imported" OR "skipped"
+        allowed_statuses = {"already_imported", "skipped", "no_change"}
+        
+        if status in allowed_statuses:
+            logger.info(f"Idempotency confirmed: Status '{status}' received.")
+            return True
+            
+        # If status dictates a new import, that's a FAIL for idempotency
+        if status in {"imported", "created", "updated"}:
+            logger.error(f"Idempotency violation: Second import returned status '{status}' (expected {allowed_statuses})")
+            return False
+            
+    except json.JSONDecodeError:
+        # Fallback: String searching if JSON parse fails (e.g. logging noise)
+        logger.warning("Could not parse second import output as JSON, falling back to string check.")
+        
+    output_lower = output_combined.lower()
+    if "already_imported" in output_lower or "already imported" in output_lower:
+        logger.info("Idempotency confirmed via string match.")
         return True
-    
-    # If not explicitly "already_imported", check if it just succeeded without error (also acceptable IF it didn't create duplicate entries)
-    # But strict contract says "should be idempotent". 
-    # Let's count JSON objects validation?
-    # For now, strict check on output status seems safer.
-    
-    if "error" in output_lower or "conflict" in output_lower:
-        logger.error(f"Idempotency check failed (error/conflict detected): {proc_i2.stdout} {proc_i2.stderr}")
-        return False
         
-    # If standard success, we assume okay but warn
-    logger.warning("Idempotency: output did not explicitly say 'already_imported', but executed without error via CLI.")
+    if "error" in output_lower or "conflict" in output_lower:
+        logger.error(f"Idempotency check failed (error/conflict detected): {output_combined}")
+        return False
+
+    # Soft warning if indeterminable but no error
+    logger.warning(f"Idempotency warning: Output did not explicitly confirm skip. Output: {output_combined[:100]}...")
     return True
 
 def main():
