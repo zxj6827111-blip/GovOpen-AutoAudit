@@ -3,56 +3,145 @@
     "site_id": "pass",
     "name": "机构信息齐全",
     "base_url": "http://localhost:8000/pass",
-    "entry_points": ["http://localhost:8000/pass"],
-    "content_paths": ["http://localhost:8000/pass"]
+    "entry_points": [
+      "http://localhost:8000/pass"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/pass",
+        "priority": 10,
+        "tags": [
+          "高优先级测试"
+        ]
+      }
+    ]
   },
   {
     "site_id": "missing_leader",
     "name": "缺负责人",
     "base_url": "http://localhost:8000/missing-leader",
-    "entry_points": ["http://localhost:8000/missing-leader"],
-    "content_paths": ["http://localhost:8000/missing-leader"]
+    "entry_points": [
+      "http://localhost:8000/missing-leader"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/missing-leader",
+        "priority": 8,
+        "tags": []
+      }
+    ]
   },
   {
     "site_id": "outdated_guide",
     "name": "公开指南过期",
     "base_url": "http://localhost:8000/outdated-guide",
-    "entry_points": ["http://localhost:8000/outdated-guide"],
-    "content_paths": ["http://localhost:8000/outdated-guide"]
+    "entry_points": [
+      "http://localhost:8000/outdated-guide"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/outdated-guide",
+        "priority": 5,
+        "tags": [
+          "中等优先级"
+        ]
+      }
+    ]
   },
   {
     "site_id": "synonym",
     "name": "栏目同义词",
     "base_url": "http://localhost:8000/synonym",
-    "entry_points": ["http://localhost:8000/synonym"],
-    "content_paths": ["http://localhost:8000/synonym"]
+    "entry_points": [
+      "http://localhost:8000/synonym"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/synonym",
+        "priority": 7,
+        "tags": []
+      }
+    ]
   },
   {
     "site_id": "attachment_404",
     "name": "附件404",
     "base_url": "http://localhost:8000/attachment",
-    "entry_points": ["http://localhost:8000/attachment"],
-    "content_paths": ["http://localhost:8000/attachment", "http://localhost:8000/attachments/missing.pdf"]
+    "entry_points": [
+      "http://localhost:8000/attachment"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/attachment",
+        "priority": 6,
+        "tags": []
+      },
+      {
+        "url": "http://localhost:8000/attachments/missing.pdf",
+        "priority": 3,
+        "tags": [
+          "低优先级"
+        ]
+      }
+    ]
   },
   {
     "site_id": "blocked",
     "name": "403模拟",
     "base_url": "http://localhost:8000/blocked",
-    "entry_points": ["http://localhost:8000/blocked"],
-    "content_paths": ["http://localhost:8000/blocked"]
+    "entry_points": [
+      "http://localhost:8000/blocked"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/blocked",
+        "priority": 5,
+        "tags": []
+      }
+    ]
   },
   {
     "site_id": "ratelimited",
     "name": "429模拟",
     "base_url": "http://localhost:8000/ratelimited",
-    "entry_points": ["http://localhost:8000/ratelimited"],
-    "content_paths": ["http://localhost:8000/ratelimited"]
+    "entry_points": [
+      "http://localhost:8000/ratelimited"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/ratelimited",
+        "priority": 5,
+        "tags": []
+      }
+    ]
   },
   {
     "site_id": "pagination",
     "name": "分页列表",
     "base_url": "http://localhost:8000/paged",
-    "entry_points": ["http://localhost:8000/paged"],
-    "content_paths": ["http://localhost:8000/paged", "http://localhost:8000/paged?page=2", "http://localhost:8000/pass"]
+    "entry_points": [
+      "http://localhost:8000/paged"
+    ],
+    "content_paths": [
+      {
+        "url": "http://localhost:8000/paged",
+        "priority": 10,
+        "tags": [
+          "高优先级"
+        ]
+      },
+      {
+        "url": "http://localhost:8000/paged?page=2",
+        "priority": 5,
+        "tags": []
+      },
+      {
+        "url": "http://localhost:8000/pass",
+        "priority": 3,
+        "tags": [
+          "低优先级"
+        ]
+      }
+    ]
   }
 ]
