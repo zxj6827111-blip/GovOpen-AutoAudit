@@ -1,0 +1,40 @@
+[
+    {
+        "site_id": "suqian_gov_zwgk",
+        "name": "宿迁市政府门户-政务公开",
+        "base_url": "https://www.suqian.gov.cn/cnsq/zwgk/zwgk.shtml",
+        "entry_points": [
+            "https://www.suqian.gov.cn/cnsq/zwgk/zwgk.shtml",
+            "https://www.suqian.gov.cn/cnsq/gkzn/xxgk.shtml",
+            "https://www.suqian.gov.cn/cnsq/jggk/xxgkjj_list.shtml",
+            "https://www.suqian.gov.cn/cnsq/zfwjjd/xxgk_list2.shtml",
+            "https://www.suqian.gov.cn/cnsq/gknb/xxgknb2019_list.shtml"
+        ]
+    },
+    {
+        "site_id": "shuyang_gov",
+        "name": "沭阳县政府门户-政务公开",
+        "base_url": "http://www.shuyang.gov.cn/shuyang/xxgk/xxgk.shtml",
+        "entry_points": [
+            "http://www.shuyang.gov.cn/shuyang/xxgk/xxgk.shtml",
+            "http://www.shuyang.gov.cn/shuyang/zfxxgkzn/xxgk.shtml",
+            "http://www.shuyang.gov.cn/shuyang/xxgknb/list.shtml"
+        ]
+    },
+    {
+        "site_id": "neg_simple_news",
+        "name": "宿迁新闻网详情页(Negative)",
+        "base_url": "http://www.sq1996.com/news/",
+        "entry_points": [
+            "http://www.sq1996.com/news/"
+        ]
+    },
+    {
+        "site_id": "neg_weather",
+        "name": "宿迁天气(Negative)",
+        "base_url": "http://www.weather.com.cn/weather/101191301.shtml",
+        "entry_points": [
+            "http://www.weather.com.cn/weather/101191301.shtml"
+        ]
+    }
+]

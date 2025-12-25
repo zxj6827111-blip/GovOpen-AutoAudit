@@ -1,0 +1,12 @@
+[
+    {
+        "site_id": "shuyang_gov",
+        "name": "Shuyang Government",
+        "base_url": "http://www.shuyang.gov.cn/",
+        "entry_points": [
+            "http://www.shuyang.gov.cn/shuyang/xxgk/xxgk.shtml",
+            "http://www.shuyang.gov.cn/shuyang/zwgk/zwgk.shtml",
+            "http://www.shuyang.gov.cn/"
+        ]
+    }
+]

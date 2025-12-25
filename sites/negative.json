@@ -1,0 +1,18 @@
+[
+    {
+        "site_id": "neg_simple_news",
+        "name": "Simple News Site (Negative Test)",
+        "base_url": "http://www.sq1996.com/",
+        "entry_points": [
+            "http://www.sq1996.com/"
+        ]
+    },
+    {
+        "site_id": "neg_weather",
+        "name": "Weather Site (Blocked Test)",
+        "base_url": "http://www.weather.com.cn/weather/101191301.shtml",
+        "entry_points": [
+            "http://www.weather.com.cn/weather/101191301.shtml"
+        ]
+    }
+]

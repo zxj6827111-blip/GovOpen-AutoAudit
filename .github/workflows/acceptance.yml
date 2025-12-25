@@ -62,10 +62,24 @@ jobs:
       run: |
         python scripts/contract_acceptance_test.py
 
+    - name: UI/API Smoke Gate
+      run: |
+        python scripts/ui_smoke_test.py
+
+    - name: Verify Report Generation (Smoke Verification)
+      run: |
+        # Generate report for the batch created by smoke test
+        # Note: We need the batch ID. The smoke test logs it, but for CI we can just look for the latest batch again
+        BATCH_ID=$(ls -t runs | head -n1)
+        python -m autoaudit.cli report $BATCH_ID --output report.md
+        cat report.md
+
     - name: Upload Evidence Artifacts
       if: failure() || success()
       uses: actions/upload-artifact@v3
       with:
         name: regression-artifacts
-        path: runs/
+        path: |
+          runs/
+          report.md
         retention-days: 5

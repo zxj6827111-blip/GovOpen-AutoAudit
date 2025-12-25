@@ -1,0 +1,11 @@
+[
+    {
+        "rule_id": "DEP-A-001",
+        "override": true,
+        "locator": {
+            "keywords": [
+                "机构概况"
+            ]
+        }
+    }
+]

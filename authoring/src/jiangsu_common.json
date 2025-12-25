@@ -1,0 +1,86 @@
+[
+    {
+        "rule_id": "SYS-REACHABILITY-0",
+        "section": "System",
+        "indicator": "Reachability",
+        "item_no": "0",
+        "text": "Validates if the site content can be accessed (connectivity check). used to screen out blocked/network error sites.",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 0,
+        "severity": "info",
+        "locator": {
+            "selector": "body"
+        },
+        "evaluator": {
+            "type": "presence_selector"
+        }
+    },
+    {
+        "rule_id": "DEP-A-001",
+        "section": "Active Disclosure",
+        "indicator": "Institution Info",
+        "item_no": "1",
+        "text": "全面公开部门权力配置情况，依法公开职责职能、机构设置、办公地址、办公时间、联系方式、负责人姓名等信息。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "机构设置"
+            ]
+        },
+        "extractor": {
+            "fields": [
+                "phone",
+                "address"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_all",
+            "required_fields": [
+                "phone"
+            ]
+        }
+    },
+    {
+        "rule_id": "DEP-A-003",
+        "section": "Active Disclosure",
+        "indicator": "Disclosure Guide",
+        "item_no": "3",
+        "text": "政府信息公开指南要及时调整完善、更新维护。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "政府信息公开指南"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "指南"
+            ]
+        }
+    },
+    {
+        "rule_id": "DEP-D-058",
+        "section": "Platform Construction",
+        "indicator": "Website Search",
+        "item_no": "58",
+        "text": "网站具备便捷信息检索功能。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "selector": "form"
+        },
+        "evaluator": {
+            "type": "presence_selector"
+        }
+    }
+]

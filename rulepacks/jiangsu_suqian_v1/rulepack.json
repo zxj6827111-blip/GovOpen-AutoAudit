@@ -1,0 +1,10 @@
+{
+  "rule_pack_id": "jiangsu_suqian_v1",
+  "name": "Suqian Government V1",
+  "region_tag": "Suqian",
+  "scope": "City",
+  "version": "v1.0",
+  "schema_version": "rule_spec_v0_2",
+  "generated_from": "manual",
+  "generated_at": "2025-12-23T15:50:49"
+}

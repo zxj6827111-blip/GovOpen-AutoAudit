@@ -1,0 +1,117 @@
+[
+    {
+        "rule_id": "SQ-DEP-A-001",
+        "section": "Active Disclosure",
+        "indicator": "Institution Info",
+        "item_no": "1",
+        "text": "全面公开部门权力配置情况，依法公开职责职能、机构设置、办公地址、办公时间、联系方式、负责人姓名等信息。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "content"
+            ]
+        },
+        "extractor": {
+            "fields": [
+                "phone"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "content"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-003",
+        "section": "Active Disclosure",
+        "indicator": "Disclosure Guide",
+        "item_no": "3",
+        "text": "政府信息公开指南要及时调整完善、更新维护。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "公开"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "公开"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-005",
+        "section": "Active Disclosure",
+        "indicator": "Annual Report",
+        "item_no": "5",
+        "text": "及时规范、高质量发布本部门政府信息公开年度报告。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "content"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "content"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-C-051",
+        "section": "Policy Interpretation",
+        "indicator": "Key Policies",
+        "item_no": "51",
+        "text": "增强政策解读的及时性，全面阐释各项政策举措。",
+        "class": 3,
+        "check_type": "quality_elements",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "nav"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "nav"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-D-058",
+        "section": "Platform Construction",
+        "indicator": "Website Search",
+        "item_no": "58",
+        "text": "网站具备便捷信息检索功能。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "div"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "div"
+            ]
+        }
+    }
+]

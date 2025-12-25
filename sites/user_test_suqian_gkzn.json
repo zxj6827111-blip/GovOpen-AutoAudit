@@ -1,0 +1,10 @@
+[
+    {
+        "site_id": "user_test_suqian_gkzn_retry",
+        "name": "User Test (Suqian GKZN Retry)",
+        "base_url": "https://www.suqian.gov.cn/cnsq/gkzn/xxgk.shtml",
+        "entry_points": [
+            "https://www.suqian.gov.cn/cnsq/gkzn/xxgk.shtml"
+        ]
+    }
+]

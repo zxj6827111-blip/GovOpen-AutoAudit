@@ -1,4 +1,5 @@
 import argparse
+import asyncio
 import json
 import threading
 import time
@@ -8,7 +9,9 @@ from .batch_runner import BatchRunner
 from .rulepack_importer import import_rulepack, RulepackImportError
 from .rulepack_validator import validate_rulepack
 from .site_importer import import_sites, SiteImportError, load_sites
+from .site_importer import import_sites, SiteImportError, load_sites
 from .sandbox_server import SandboxServer
+from .report_generator import generate_markdown_report
 
 
 def cmd_validate(args):
@@ -32,15 +35,15 @@ def cmd_import_sites(args):
         print(str(exc))
 
 
-def cmd_run_batch(args):
+async def cmd_run_batch(args):
     rulepack_path = Path(args.rulepack)
     sites = load_sites()
     runner = BatchRunner(rulepack_path, sites)
-    result = runner.run()
+    result = await runner.run()  # 添加await
     print(json.dumps(result.__dict__, ensure_ascii=False, indent=2, default=str))
 
 
-def cmd_regression(args):
+async def cmd_regression(args):
     server = SandboxServer(port=8000)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -48,9 +51,16 @@ def cmd_regression(args):
     try:
         cmd_import_rulepack(argparse.Namespace(path="rulepacks/sandbox_mvp"))
         cmd_import_sites(argparse.Namespace(path="sandbox/sites.json"))
-        cmd_run_batch(argparse.Namespace(rulepack="rulepacks/sandbox_mvp"))
+        await cmd_run_batch(argparse.Namespace(rulepack="rulepacks/sandbox_mvp"))  # 添加await
     finally:
         server.shutdown()
+
+
+def cmd_report(args):
+    """Report is auto-generated during batch run"""
+    print(f"Report for batch {args.batch_id} should be at:")
+    print(f"  runs/{args.batch_id}/export/report.md")
+
 
 
 def build_parser():
@@ -76,6 +86,12 @@ def build_parser():
     p_reg = sub.add_parser("regression", help="run sandbox regression")
     p_reg.set_defaults(func=cmd_regression)
 
+    p_report = sub.add_parser("report", help="generate report for a batch")
+    p_report.add_argument("batch_id")
+    p_report.add_argument("--format", default="markdown", choices=["markdown"])
+    p_report.add_argument("--output", help="save report to file")
+    p_report.set_defaults(func=cmd_report)
+
     return parser
 
 
@@ -85,7 +101,13 @@ def main():
     if not hasattr(args, "func"):
         parser.print_help()
         return
-    args.func(args)
+    
+    # 如果是async函数，使用asyncio.run
+    import inspect
+    if inspect.iscoroutinefunction(args.func):
+        asyncio.run(args.func(args))
+    else:
+        args.func(args)
 
 
 if __name__ == "__main__":
