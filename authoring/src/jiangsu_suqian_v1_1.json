@@ -1,0 +1,489 @@
+[
+    {
+        "rule_id": "SYS-REACHABILITY-0",
+        "section": "System",
+        "indicator": "Reachability",
+        "item_no": "0",
+        "text": "Validates if the site content can be accessed (connectivity check). used to screen out blocked/network error sites.",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 0,
+        "severity": "info",
+        "locator": {
+            "selector": "body"
+        },
+        "evaluator": {
+            "type": "presence_selector"
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-001",
+        "section": "Active Disclosure",
+        "indicator": "Institution Info",
+        "item_no": "1",
+        "text": "全面公开部门权力配置情况，依法公开职责职能、机构设置、办公地址、办公时间、联系方式、负责人姓名等信息。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "机构设置",
+                "概况信息"
+            ]
+        },
+        "extractor": {
+            "fields": [
+                "phone",
+                "address"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_all",
+            "required_fields": [
+                "phone"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-003",
+        "section": "Active Disclosure",
+        "indicator": "Disclosure Guide",
+        "item_no": "3",
+        "text": "政府信息公开指南要及时调整完善、更新维护。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "政府信息公开指南",
+                "公开指南"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "指南"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-005",
+        "section": "Active Disclosure",
+        "indicator": "Annual Report",
+        "item_no": "5",
+        "text": "及时规范、高质量发布本部门政府信息公开年度报告。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "政府信息公开工作年度报告"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_regex",
+            "pattern": "202[3-5]年"
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-007",
+        "section": "Active Disclosure",
+        "indicator": "Decision Making",
+        "item_no": "7",
+        "text": "通过意见征集、决策草案等栏目公布内容采用决策草案。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "意见征集",
+                "草案"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "征集"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-013",
+        "section": "Active Disclosure",
+        "indicator": "Fees",
+        "item_no": "13",
+        "text": "全面、规范公开行政事业性收费项目。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "行政事业性收费",
+                "收费项目"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "收费"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-016",
+        "section": "Active Disclosure",
+        "indicator": "Budget",
+        "item_no": "16",
+        "text": "公开部门财政预决算信息、“三公”经费。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "财政预决算",
+                "三公经费",
+                "预算"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "预算",
+                "决算"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-030",
+        "section": "Active Disclosure",
+        "indicator": "Public Resource",
+        "item_no": "30",
+        "text": "公开农村危房改造信息、人才公寓和公租房建设。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "危房改造",
+                "公租房",
+                "保障性住房"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "改造",
+                "住房"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-035",
+        "section": "Active Disclosure",
+        "indicator": "Procurement",
+        "item_no": "35",
+        "text": "公开工程建设项目招投标信息。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "招投标",
+                "中标",
+                "招标"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "中标",
+                "招标"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-B-045",
+        "section": "On Request",
+        "indicator": "Request Channel",
+        "item_no": "45",
+        "text": "常态化建设和维护当面申请、邮寄申请、在线申请渠道。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "依申请公开",
+                "在线申请"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "依申请"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-C-051",
+        "section": "Policy Interpretation",
+        "indicator": "Key Policies",
+        "item_no": "51",
+        "text": "增强政策解读的及时性，全面阐释各项政策举措。",
+        "class": 3,
+        "check_type": "quality_elements",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "政策解读",
+                "解读"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "解读"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-D-058",
+        "section": "Platform Construction",
+        "indicator": "Website Search",
+        "item_no": "58",
+        "text": "网站具备便捷信息检索功能。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "selector": "form"
+        },
+        "evaluator": {
+            "type": "presence_selector"
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-D-061",
+        "section": "Platform Construction",
+        "indicator": "Clean Up",
+        "item_no": "61",
+        "text": "加强对网站已公开政府信息的清理规范；对失效文件定期梳理。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "失效",
+                "废止"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "失效",
+                "废止"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-D-063",
+        "section": "Platform Construction",
+        "indicator": "New Media",
+        "item_no": "63",
+        "text": "政务新媒体名称应简洁规范，并在公开认证信息中标明主办单位名称。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "微信",
+                "微博",
+                "新媒体"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "关注",
+                "扫码"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-E-067",
+        "section": "Innovation",
+        "indicator": "Standardization Pilot",
+        "item_no": "67",
+        "text": "指导基层单位编制及更新完善本级政务公开事项标准目录清单。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 5,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "标准目录",
+                "目录清单"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "标准",
+                "目录"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-012",
+        "section": "Active Disclosure",
+        "indicator": "Deployment",
+        "item_no": "12",
+        "text": "及时公开重大决策部署落实、问题整改、问责等情况。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "决策部署",
+                "整改"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "部署",
+                "落实"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-040",
+        "section": "Active Disclosure",
+        "indicator": "Civil Projects",
+        "item_no": "40",
+        "text": "公开项目土地征收信息。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "征收",
+                "土地方案"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "征收"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-022",
+        "section": "Active Disclosure",
+        "indicator": "Social Welfare",
+        "item_no": "22",
+        "text": "公开养老服务方面的政策文件、补贴发放等情况。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "养老",
+                "补贴"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "养老"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-026",
+        "section": "Active Disclosure",
+        "indicator": "Environment",
+        "item_no": "26",
+        "text": "公开环境污染防治和生态保护政策措施。",
+        "class": 2,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "环境",
+                "污染",
+                "生态"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "环境"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-029",
+        "section": "Active Disclosure",
+        "indicator": "Recruitment",
+        "item_no": "29",
+        "text": "全面公开公务员招考相关信息的情况。",
+        "class": 1,
+        "check_type": "presence_or_timeliness",
+        "score": 2,
+        "severity": "penalty",
+        "locator": {
+            "keywords": [
+                "招考",
+                "招聘",
+                "公务员"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "招聘",
+                "录用"
+            ]
+        }
+    },
+    {
+        "rule_id": "SQ-DEP-A-002",
+        "section": "Active Disclosure",
+        "indicator": "Internal Process",
+        "item_no": "2",
+        "text": "将政务公开要求纳入办文、办会程序（内部文件属性）。",
+        "class": 4,
+        "check_type": "not_assessable",
+        "score": 2,
+        "severity": "info",
+        "locator": {
+            "keywords": [
+                "impossible_marker"
+            ]
+        },
+        "evaluator": {
+            "type": "presence_keywords",
+            "keywords": [
+                "impossible"
+            ]
+        }
+    }
+]

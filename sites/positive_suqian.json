@@ -1,0 +1,10 @@
+[
+    {
+        "site_id": "suqian_gov_zwgk",
+        "name": "Suqian Government ZWGK",
+        "base_url": "http://www.suqian.gov.cn/suqian/xxgk/xxgk.shtml",
+        "entry_points": [
+            "http://www.suqian.gov.cn/suqian/xxgk/xxgk.shtml"
+        ]
+    }
+]

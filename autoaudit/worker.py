@@ -1,8 +1,7 @@
 import base64
 import random
 import time
-import urllib.error
-import urllib.request
+import requests
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -31,6 +30,12 @@ class BrowserWorker:
         self.base_dir = RUNS_DIR / batch_id / f"site_{site_id}"
         self.base_dir.mkdir(parents=True, exist_ok=True)
         self.traces: List[TraceStep] = []
+        self.session = requests.Session()
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 GovOpen-AutoAudit/1.0",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
+        })
 
     def _write_screenshot(self, name: str) -> str:
         path = self.base_dir / name
@@ -48,14 +53,14 @@ class BrowserWorker:
         body = ""
         status_code = 0
         try:
-            with urllib.request.urlopen(url, timeout=10) as resp:
-                status_code = resp.getcode()
-                body = resp.read().decode("utf-8", errors="ignore")
-        except urllib.error.HTTPError as exc:
-            status_code = exc.code
-            body = exc.read().decode("utf-8", errors="ignore")
-        except Exception:  # noqa: BLE001
-            status_code = 0
+            resp = self.session.get(url, timeout=15, verify=False) # Skip SSL verify for gov sites often issues
+            resp.encoding = resp.apparent_encoding
+            status_code = resp.status_code
+            body = resp.text
+        except Exception as e:
+            # logging.error(f"Fetch failed {url}: {e}")
+            pass
+        
         elapsed = time.time() - start
         snapshot = self._write_snapshot(f"snapshot_{len(self.traces)}.html", body)
         screenshot = self._write_screenshot(f"screenshot_{len(self.traces)}.png")
@@ -72,8 +77,19 @@ class BrowserWorker:
         content_paths = site.get("content_paths", [])
         if not content_paths:
             return []
-        ordered = content_paths[:per_list_recent_n]
-        remaining = content_paths[per_list_recent_n:]
+        
+        # 支持新格式（对象数组 + 优先级）
+        if isinstance(content_paths[0], dict):
+            # 按priority降序排序
+            sorted_paths = sorted(content_paths, key=lambda x: x.get("priority", 5), reverse=True)
+            urls = [cp["url"] for cp in sorted_paths]
+        else:
+            # 兼容旧格式（字符串数组）
+            urls = content_paths
+        
+        # 原有抽样逻辑
+        ordered = urls[:per_list_recent_n]
+        remaining = urls[per_list_recent_n:]
         random.shuffle(remaining)
         ordered.extend(remaining[:per_list_random_m])
         return ordered[:max_content_pages]

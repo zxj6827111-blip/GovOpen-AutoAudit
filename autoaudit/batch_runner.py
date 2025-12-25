@@ -1,3 +1,4 @@
+import asyncio
 import json
 import uuid
 from pathlib import Path
@@ -6,7 +7,7 @@ from typing import Dict, List
 from .models import BatchRunResult
 from .rule_engine import RuleEngine
 from .storage import RUNS_DIR
-from .worker import BrowserWorker
+from .dual_channel_worker import run_site_dual_channel
 from .reporting import summarize
 
 
@@ -27,10 +28,19 @@ class BatchRunner:
         self.batch_id = f"batch_{uuid.uuid4().hex[:8]}"
         (RUNS_DIR / self.batch_id).mkdir(parents=True, exist_ok=True)
 
-    def run(self) -> BatchRunResult:
-        site_results = []
-        for site in self.sites:
-            site_results.append(self._run_site(site))
+    async def run(self) -> BatchRunResult:
+        # 并发控制：最多2个并发worker
+        semaphore = asyncio.Semaphore(2)
+        
+        async def process_site(site):
+            async with semaphore:
+                return await self._run_site(site)
+        
+        # 并发执行所有站点
+        tasks = [process_site(site) for site in self.sites]
+        site_results = await asyncio.gather(*tasks)
+        
+        # summarize保持同步（无IO操作）
         summary_paths = summarize(
             batch_id=self.batch_id,
             site_results=site_results,
@@ -50,9 +60,15 @@ class BatchRunner:
             evidence_zip=summary_paths["evidence_zip"],
         )
 
-    def _run_site(self, site: Dict) -> Dict:
-        worker = BrowserWorker(self.batch_id, site["site_id"])
-        entry_results, content_results = worker.run_site(site, self.sampling)
+    async def _run_site(self, site: Dict) -> Dict:
+        # 使用双通道worker
+        entry_results, content_results = await run_site_dual_channel(
+            self.batch_id,
+            site["site_id"],
+            site,
+            self.sampling,
+            rules=self.rules  # ✅ 传递规则用于红框标注
+        )
         failures = []
         failure_meta = None
         for res in entry_results + content_results:
@@ -76,12 +92,14 @@ class BatchRunner:
                 "snapshot": res.snapshot,
                 "screenshot": res.screenshot,
                 "status_code": res.status_code,
+                "site_id": site["site_id"],  # 添加site_id用于Evidence创建
             }
-            for res in content_results
+            for res in entry_results + content_results
         ]
         rule_engine = RuleEngine(self.rules)
         rule_results = rule_engine.evaluate(pages_payload, failures)
-        trace_path = worker.save_trace()
+        # trace已由dual_channel_worker保存
+        trace_path = RUNS_DIR / self.batch_id / f"site_{site['site_id']}" / "trace.json"
         coverage_stats = {
             "entry_pages": len(entry_results),
             "content_pages": len(content_results),

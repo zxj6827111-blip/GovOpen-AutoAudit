@@ -1,0 +1,13 @@
+[
+    {
+        "site_id": "user_test_suqian_combo",
+        "name": "User Test (Suqian Home + Guide)",
+        "base_url": "https://www.suqian.gov.cn/cnsq/zwgk/zwgk.shtml",
+        "entry_points": [
+            "https://www.suqian.gov.cn/cnsq/zwgk/zwgk.shtml"
+        ],
+        "content_paths": [
+            "https://www.suqian.gov.cn/cnsq/gkzn/xxgk.shtml"
+        ]
+    }
+]

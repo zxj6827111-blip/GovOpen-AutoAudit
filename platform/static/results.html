@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>检测结果 - 政务公开自动评估平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .batch-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .batch-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .batch-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .batch-id {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .batch-time {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .batch-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .pass {
+            color: #388e3c;
+        }
+
+        .fail {
+            color: #c62828;
+        }
+
+        .uncertain {
+            color: #f57c00;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .details-view {
+            display: none;
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .site-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .site-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ 检测结果</h1>
+            <p>查看历史检测记录</p>
+        </div>
+
+        <div class="nav">
+            <a href="/">🏠 返回首页</a>
+            <a href="/docs">📚 API文档</a>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">历史批次</h2>
+            <div id="batchList" class="batch-list">
+                <div class="loading">正在加载...</div>
+            </div>
+        </div>
+
+        <div class="card details-view" id="detailsView">
+            <button class="btn btn-primary" onclick="backToList()">← 返回列表</button>
+            <h2 style="margin: 20px 0;">批次详情</h2>
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentBatches = [];
+
+        async function loadBatches() {
+            try {
+                const response = await fetch('/batch/list');
+                const data = await response.json();
+
+                if (data.batches && data.batches.length > 0) {
+                    currentBatches = data.batches;
+                    displayBatches(data.batches);
+                } else {
+                    document.getElementById('batchList').innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            还没有检测记录<br><br>
+                            请运行: <code>python scripts/run_pilot.py</code>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('batchList').innerHTML = `
+                    <div style="color: red; text-align: center; padding: 40px;">
+                        加载失败: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function displayBatches(batches) {
+            const html = batches.map(batch => `
+                <div class="batch-item" onclick="viewBatch('${batch.batch_id}')">
+                    <div class="batch-header">
+                        <div class="batch-id">${batch.batch_id}</div>
+                        <div class="batch-time">${new Date(batch.timestamp).toLocaleString('zh-CN')}</div>
+                    </div>
+                    <div>规则包: ${batch.rulepack || 'N/A'}</div>
+                    <div class="batch-stats">
+                        <div class="stat">
+                            <div class="stat-value">${batch.stats?.total_rules || 0}</div>
+                            <div class="stat-label">总规则</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value pass">${batch.stats?.rule_results?.PASS || 0}</div>
+                            <div class="stat-label">通过</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value fail">${batch.stats?.rule_results?.FAIL || 0}</div>
+                            <div class="stat-label">未通过</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value uncertain">${batch.stats?.rule_results?.UNCERTAIN || 0}</div>
+                            <div class="stat-label">不确定</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('batchList').innerHTML = html;
+        }
+
+        async function viewBatch(batchId) {
+            try {
+                const response = await fetch(`/batch/${batchId}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('加载批次详情失败: ' + data.error);
+                    return;
+                }
+
+                displayBatchDetails(data);
+
+                // 切换视图
+                document.querySelector('.batch-list').parentElement.style.display = 'none';
+                document.getElementById('detailsView').style.display = 'block';
+
+            } catch (error) {
+                alert('加载失败: ' + error.message);
+            }
+        }
+
+        function displayBatchDetails(data) {
+            const summary = data.summary;
+            const sites = summary.site_results || [];
+
+            const sitesHtml = sites.map(site => `
+                <div class="site-card">
+                    <div class="site-name">📍 ${site.site_id}</div>
+                    <div class="batch-stats">
+                        <div class="stat">
+                            <div class="stat-value pass">${site.pass_count}</div>
+                            <div class="stat-label">通过</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value fail">${site.fail_count}</div>
+                            <div class="stat-label">未通过</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value uncertain">${site.uncertain_count}</div>
+                            <div class="stat-label">不确定</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                        页面: ${site.coverage?.entry_pages || 0} 入口 / ${site.coverage?.content_pages || 0} 内容<br>
+                        规则覆盖: ${site.coverage?.rules || 0}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('detailsContent').innerHTML = `
+                <div class="batch-stats" style="margin-bottom: 30px;">
+                    <div class="stat">
+                        <div class="stat-value">${summary.statistics.total_sites}</div>
+                        <div class="stat-label">网站数</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${summary.statistics.total_rules}</div>
+                        <div class="stat-label">总规则</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value pass">${summary.statistics.rule_results.PASS}</div>
+                        <div class="stat-label">通过</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value fail">${summary.statistics.rule_results.FAIL}</div>
+                        <div class="stat-label">未通过</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value uncertain">${summary.statistics.rule_results.UNCERTAIN}</div>
+                        <div class="stat-label">不确定</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 15px;">各网站详情</h3>
+                <div class="sites-grid">${sitesHtml}</div>
+            `;
+        }
+
+        function backToList() {
+            document.querySelector('.batch-list').parentElement.style.display = 'block';
+            document.getElementById('detailsView').style.display = 'none';
+        }
+
+        // 页面加载时获取批次列表
+        window.addEventListener('load', loadBatches);
+    </script>
+</body>
+
+</html>

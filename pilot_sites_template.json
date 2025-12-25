@@ -1,0 +1,21 @@
+{
+    "sites": [
+        {
+            "site_id": "example_dept_a",
+            "name": "示例部门A (Example Dept)",
+            "base_url": "http://www.example.gov.cn/dept_a/",
+            "entry_points": [
+                "http://www.example.gov.cn/dept_a/guide",
+                "http://www.example.gov.cn/dept_a/news"
+            ]
+        },
+        {
+            "site_id": "example_dept_b",
+            "name": "示例部门B",
+            "base_url": "http://www.example.gov.cn/dept_b/",
+            "entry_points": [
+                "http://www.example.gov.cn/dept_b/index.html"
+            ]
+        }
+    ]
+}

@@ -60,6 +60,10 @@ def _row_to_rule(row: Dict[str, Any], rule_pack_id: str) -> Dict[str, Any]:
     base_rule_id = f"{rule_pack_id}-{indicator}-{item_no}" if indicator and item_no else f"{rule_pack_id}-{item_no or _slugify(text[:12])}"
     rule_id = _slugify(base_rule_id)
 
+    locator = row.get("locator") or {}
+    extractor = row.get("extractor") or {}
+    evaluator = row.get("evaluator") or {}
+
     return {
         "rule_id": rule_id,
         "section": str(section),
@@ -74,9 +78,9 @@ def _row_to_rule(row: Dict[str, Any], rule_pack_id: str) -> Dict[str, Any]:
         "allow_ai_assist": False,
         "automation_level": automation_level,
         "severity": str(severity_value or DEFAULT_SEVERITY),
-        "locator": {},
-        "extractor": {},
-        "evaluator": {},
+        "locator": locator,
+        "extractor": extractor,
+        "evaluator": evaluator,
         "mutex_group": None,
         "cap_group": None,
         "max_penalty_in_group": None,

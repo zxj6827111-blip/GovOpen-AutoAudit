@@ -1,0 +1,698 @@
+[
+  {
+    "rule_id": "jiangsu_suqian_v1_1-reachability-0",
+    "section": "System",
+    "indicator": "Reachability",
+    "item_no": "0",
+    "text": "Validates if the site content can be accessed (connectivity check). used to screen out blocked/network error sites.",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 0.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "info",
+    "locator": {
+      "selector": "body"
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_selector"
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-institution-info-1",
+    "section": "Active Disclosure",
+    "indicator": "Institution Info",
+    "item_no": "1",
+    "text": "全面公开部门权力配置情况，依法公开职责职能、机构设置、办公地址、办公时间、联系方式、负责人姓名等信息。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "机构设置",
+        "概况信息"
+      ]
+    },
+    "extractor": {
+      "fields": [
+        "phone",
+        "address"
+      ]
+    },
+    "evaluator": {
+      "type": "presence_all",
+      "required_fields": [
+        "phone"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-disclosure-guide-3",
+    "section": "Active Disclosure",
+    "indicator": "Disclosure Guide",
+    "item_no": "3",
+    "text": "政府信息公开指南要及时调整完善、更新维护。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "政府信息公开指南",
+        "公开指南"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "指南"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-annual-report-5",
+    "section": "Active Disclosure",
+    "indicator": "Annual Report",
+    "item_no": "5",
+    "text": "及时规范、高质量发布本部门政府信息公开年度报告。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "政府信息公开工作年度报告"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_regex",
+      "pattern": "202[3-5]年"
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-decision-making-7",
+    "section": "Active Disclosure",
+    "indicator": "Decision Making",
+    "item_no": "7",
+    "text": "通过意见征集、决策草案等栏目公布内容采用决策草案。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "意见征集",
+        "草案"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "征集"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-fees-13",
+    "section": "Active Disclosure",
+    "indicator": "Fees",
+    "item_no": "13",
+    "text": "全面、规范公开行政事业性收费项目。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "行政事业性收费",
+        "收费项目"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "收费"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-budget-16",
+    "section": "Active Disclosure",
+    "indicator": "Budget",
+    "item_no": "16",
+    "text": "公开部门财政预决算信息、“三公”经费。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "财政预决算",
+        "三公经费",
+        "预算"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "预算",
+        "决算"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-public-resource-30",
+    "section": "Active Disclosure",
+    "indicator": "Public Resource",
+    "item_no": "30",
+    "text": "公开农村危房改造信息、人才公寓和公租房建设。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "危房改造",
+        "公租房",
+        "保障性住房"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "改造",
+        "住房"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-procurement-35",
+    "section": "Active Disclosure",
+    "indicator": "Procurement",
+    "item_no": "35",
+    "text": "公开工程建设项目招投标信息。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "招投标",
+        "中标",
+        "招标"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "中标",
+        "招标"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-request-channel-45",
+    "section": "On Request",
+    "indicator": "Request Channel",
+    "item_no": "45",
+    "text": "常态化建设和维护当面申请、邮寄申请、在线申请渠道。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "依申请公开",
+        "在线申请"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "依申请"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-key-policies-51",
+    "section": "Policy Interpretation",
+    "indicator": "Key Policies",
+    "item_no": "51",
+    "text": "增强政策解读的及时性，全面阐释各项政策举措。",
+    "class": 3,
+    "check_type": "quality_elements",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "政策解读",
+        "解读"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "解读"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-website-search-58",
+    "section": "Platform Construction",
+    "indicator": "Website Search",
+    "item_no": "58",
+    "text": "网站具备便捷信息检索功能。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "selector": "form"
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_selector"
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-clean-up-61",
+    "section": "Platform Construction",
+    "indicator": "Clean Up",
+    "item_no": "61",
+    "text": "加强对网站已公开政府信息的清理规范；对失效文件定期梳理。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "失效",
+        "废止"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "失效",
+        "废止"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-new-media-63",
+    "section": "Platform Construction",
+    "indicator": "New Media",
+    "item_no": "63",
+    "text": "政务新媒体名称应简洁规范，并在公开认证信息中标明主办单位名称。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "微信",
+        "微博",
+        "新媒体"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "关注",
+        "扫码"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-standardization-pilot-67",
+    "section": "Innovation",
+    "indicator": "Standardization Pilot",
+    "item_no": "67",
+    "text": "指导基层单位编制及更新完善本级政务公开事项标准目录清单。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 5.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "标准目录",
+        "目录清单"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "标准",
+        "目录"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-deployment-12",
+    "section": "Active Disclosure",
+    "indicator": "Deployment",
+    "item_no": "12",
+    "text": "及时公开重大决策部署落实、问题整改、问责等情况。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "决策部署",
+        "整改"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "部署",
+        "落实"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-civil-projects-40",
+    "section": "Active Disclosure",
+    "indicator": "Civil Projects",
+    "item_no": "40",
+    "text": "公开项目土地征收信息。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "征收",
+        "土地方案"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "征收"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-social-welfare-22",
+    "section": "Active Disclosure",
+    "indicator": "Social Welfare",
+    "item_no": "22",
+    "text": "公开养老服务方面的政策文件、补贴发放等情况。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "养老",
+        "补贴"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "养老"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-environment-26",
+    "section": "Active Disclosure",
+    "indicator": "Environment",
+    "item_no": "26",
+    "text": "公开环境污染防治和生态保护政策措施。",
+    "class": 2,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "环境",
+        "污染",
+        "生态"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "环境"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-recruitment-29",
+    "section": "Active Disclosure",
+    "indicator": "Recruitment",
+    "item_no": "29",
+    "text": "全面公开公务员招考相关信息的情况。",
+    "class": 1,
+    "check_type": "presence_or_timeliness",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": true,
+    "allow_ai_assist": false,
+    "automation_level": "FULL",
+    "severity": "penalty",
+    "locator": {
+      "keywords": [
+        "招考",
+        "招聘",
+        "公务员"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "招聘",
+        "录用"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  },
+  {
+    "rule_id": "jiangsu_suqian_v1_1-internal-process-2",
+    "section": "Active Disclosure",
+    "indicator": "Internal Process",
+    "item_no": "2",
+    "text": "将政务公开要求纳入办文、办会程序（内部文件属性）。",
+    "class": 4,
+    "check_type": "not_assessable",
+    "schedule": "ANNUAL",
+    "score": 2.0,
+    "evidence_required": false,
+    "allow_ai_assist": false,
+    "automation_level": "MANUAL",
+    "severity": "info",
+    "locator": {
+      "keywords": [
+        "impossible_marker"
+      ]
+    },
+    "extractor": {},
+    "evaluator": {
+      "type": "presence_keywords",
+      "keywords": [
+        "impossible"
+      ]
+    },
+    "mutex_group": null,
+    "cap_group": null,
+    "max_penalty_in_group": null,
+    "output_hints": null,
+    "suggestions": null
+  }
+]
