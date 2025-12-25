@@ -1,0 +1,19 @@
+{
+    "sites": [
+        {
+            "site_id": "suqian_fgw",
+            "name": "宿迁市发改委-政务公开",
+            "base_url": "https://fgw.suqian.gov.cn",
+            "entry_points": [
+                "https://fgw.suqian.gov.cn/sfgw/jgzn/xxgk_list.shtml",
+                "https://fgw.suqian.gov.cn/sfgw/gknb/xxgk_list.shtml",
+                "https://fgw.suqian.gov.cn/sfgw/gkzd/xxgk_list.shtml",
+                "https://fgw.suqian.gov.cn/sfgw/gkzn/xxgk_list.shtml"
+            ],
+            "settings": {
+                "enable_deep_nav": true,
+                "max_nav_depth": 5
+            }
+        }
+    ]
+}
