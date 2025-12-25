@@ -1,0 +1,122 @@
+{
+  "rule_pack_id": "suqian_dept_institution_v1",
+  "name": "宿迁市政务公开监测（部门）- 制度公开",
+  "version": "1.0.0",
+  "schema_version": "v1",
+  "scope": {
+    "object": "department",
+    "site": "suqian.gov.cn"
+  },
+  "indicator": {
+    "indicator_id": "A1",
+    "indicator_name": "制度公开",
+    "full_score": 10.0
+  },
+  "scoring": {
+    "mode_default": "conservative",
+    "modes": {
+      "conservative": {
+        "count_as_missing_status": [
+          "FAIL"
+        ]
+      },
+      "strict": {
+        "count_as_missing_status": [
+          "FAIL",
+          "UNCERTAIN"
+        ]
+      }
+    },
+    "items": [
+      {
+        "item_id": "A1-1",
+        "item_name": "机构权力配置与机构信息要素公开",
+        "full_score": 2.5,
+        "cap_deduction": 2.5,
+        "unit_deduction": 0.5,
+        "aggregation": {
+          "type": "count_missing_rules",
+          "missing_rule_ids": [
+            "A1-1-E1-functions",
+            "A1-1-E2-org-structure",
+            "A1-1-E3-office-address",
+            "A1-1-E4-office-hours",
+            "A1-1-E5-contact",
+            "A1-1-E6-head-name"
+          ]
+        }
+      },
+      {
+        "item_id": "A1-2",
+        "item_name": "文件公开页面公开属性标注",
+        "full_score": 2.0,
+        "cap_deduction": 2.0,
+        "unit_deduction": 0.5,
+        "aggregation": {
+          "type": "count_violations",
+          "violation_rule_id": "A1-2-attr-labeling-sample"
+        }
+      },
+      {
+        "item_id": "A1-3",
+        "item_name": "政府信息公开指南更新完善",
+        "full_score": 2.0,
+        "cap_deduction": 2.0,
+        "aggregation": {
+          "type": "sum_rule_deductions_with_cap",
+          "rule_ids": [
+            "A1-3-guide-exists",
+            "A1-3-guide-link-ok",
+            "A1-3-guide-updated-within-1y",
+            "A1-3-guide-has-fee-2020-109",
+            "A1-3-guide-has-local-2021-25",
+            "A1-3-guide-has-local-2021-21"
+          ]
+        }
+      },
+      {
+        "item_id": "A1-4",
+        "item_name": "政府信息公开年度报告及时规范发布",
+        "full_score": 2.0,
+        "cap_deduction": 2.0,
+        "aggregation": {
+          "type": "sum_rule_deductions_with_cap",
+          "rule_ids": [
+            "A1-4-report-exists",
+            "A1-4-report-before-0331",
+            "A1-4-report-dup-over-50",
+            "A1-4-report-data-anomaly"
+          ]
+        }
+      },
+      {
+        "item_id": "A1-5",
+        "item_name": "依申请公开制度、流程图、表格下载",
+        "full_score": 1.5,
+        "cap_deduction": 1.5,
+        "unit_deduction": 0.5,
+        "aggregation": {
+          "type": "count_missing_rules",
+          "missing_rule_ids": [
+            "A1-5-apply-system-exists",
+            "A1-5-apply-flowchart-exists",
+            "A1-5-apply-form-download"
+          ]
+        }
+      }
+    ]
+  },
+  "runtime": {
+    "fetch": {
+      "max_pages_total": 60,
+      "timeout_ms": 12000,
+      "user_agent": "GovOpen-AutoAudit/1.0"
+    },
+    "evidence": {
+      "snippet_max_len": 180
+    }
+  },
+  "entry_points": {
+    "institution_nav_seed": "https://www.suqian.gov.cn/cnsq/jggk/xxgkjj_list.shtml"
+  }
+}

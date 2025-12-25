@@ -1,0 +1,447 @@
+[
+  {
+    "rule_id": "A1-1-E1-functions",
+    "item_id": "A1-1",
+    "element": "工作职能",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "机构职能",
+          "机构职责",
+          "部门职能"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "主要职责",
+      "工作职责",
+      "机构职能",
+      "职责范围",
+      "职能"
+    ],
+    "min_text_len": 50,
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-1-E2-org-structure",
+    "item_id": "A1-1",
+    "element": "机构设置",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "机构设置",
+          "组织机构",
+          "内设机构"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "内设机构",
+      "机构设置",
+      "组织机构",
+      "下属单位",
+      "科室"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-1-E3-office-address",
+    "item_id": "A1-1",
+    "element": "办公地址",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "联系方式",
+          "联系我们",
+          "机构概况",
+          "机构简介",
+          "机构职能",
+          "机构设置",
+          "领导分工"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "办公地址",
+      "联系地址",
+      "地址"
+    ],
+    "pass_if_regex_all": [
+      "(路|街|大道|号|弄|巷|室|楼|大厦)"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-1-E4-office-hours",
+    "item_id": "A1-1",
+    "element": "办公时间",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "联系方式",
+          "联系我们",
+          "机构概况",
+          "机构简介",
+          "机构职能",
+          "机构设置",
+          "领导分工"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "办公时间",
+      "工作时间"
+    ],
+    "pass_if_regex_any_secondary": [
+      "(周一|周二|周三|周四|周五|周六|周日)",
+      "([01]?\\d|2[0-3]):[0-5]\\d\\s*[-—~]\\s*([01]?\\d|2[0-3]):[0-5]\\d"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-1-E5-contact",
+    "item_id": "A1-1",
+    "element": "联系方式",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "联系方式",
+          "联系我们",
+          "机构概况",
+          "机构简介",
+          "机构职能",
+          "机构设置",
+          "领导分工"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "联系电话",
+      "咨询电话",
+      "电话",
+      "邮箱",
+      "传真",
+      "邮编"
+    ],
+    "pass_if_regex_any_secondary": [
+      "\\d{3,4}[- ]?\\d{7,8}",
+      "@",
+      "邮编\\s*\\d{6}"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-1-E6-head-name",
+    "item_id": "A1-1",
+    "element": "负责人姓名",
+    "type": "presence_any",
+    "targets": [
+      {
+        "source": "seed_link_by_anchor",
+        "seed_key": "institution_nav_seed",
+        "match_unit_name": true,
+        "anchors_any": [
+          "领导分工",
+          "机构领导",
+          "领导信息"
+        ]
+      }
+    ],
+    "pass_if_regex_any": [
+      "负责人",
+      "主要负责人",
+      "局长",
+      "主任",
+      "秘书长"
+    ],
+    "pass_if_regex_any_secondary": [
+      "[\\u4e00-\\u9fa5]{2,4}"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-2-attr-labeling-sample",
+    "item_id": "A1-2",
+    "type": "per_page_violation_count",
+    "deduct_per_violation": 0.5,
+    "cap_deduction": 2.0,
+    "sampling": {
+      "strategy": "latest_items_from_lists",
+      "list_entry_keywords_any": [
+        "行政规范性文件",
+        "政府规章",
+        "政策文件",
+        "通知公告",
+        "人事信息",
+        "财政预决算",
+        "政府采购"
+      ],
+      "max_lists": 3,
+      "max_items_per_list": 6
+    },
+    "page_pass_if_regex_any": [
+      "公开",
+      "不公开",
+      "依法不予公开",
+      "部分公开"
+    ],
+    "page_pass_if_regex_any_secondary": [
+      "公开属性",
+      "信息公开属性",
+      "公开方式",
+      "公开范围"
+    ],
+    "violation_when": "missing_label",
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "按抽样到的‘文件/信息详情页’逐页检查公开属性标注；未标注计1例。"
+  },
+  {
+    "rule_id": "A1-3-guide-exists",
+    "item_id": "A1-3",
+    "type": "existence",
+    "deduct_if_fail": 2.0,
+    "cap_deduction": 2.0,
+    "locate": {
+      "keywords_any": [
+        "政府信息公开指南",
+        "信息公开指南"
+      ],
+      "url_hint_any": [
+        "/gkzn",
+        "/xxgkzn",
+        "xxgk.shtml"
+      ]
+    },
+    "pass_if_found": true,
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "未公开或找不到入口：按指标‘未公开扣2分’处理。"
+  },
+  {
+    "rule_id": "A1-3-guide-link-ok",
+    "item_id": "A1-3",
+    "type": "link_health",
+    "deduct_if_fail": 2.0,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-3-guide-exists",
+    "pass_if_http_status_in": [
+      200,
+      301,
+      302
+    ],
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "链接失效按‘链接失效扣2分’处理（与未公开同档）。"
+  },
+  {
+    "rule_id": "A1-3-guide-updated-within-1y",
+    "item_id": "A1-3",
+    "type": "freshness",
+    "deduct_if_fail": 1.0,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-3-guide-link-ok",
+    "date_fields_any": [
+      "更新时间",
+      "发布日期",
+      "发文日期"
+    ],
+    "max_age_days": 365,
+    "on_missing_date": "UNCERTAIN",
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "超过1年未修订扣1分；日期抓不到不自动扣，进复核。"
+  },
+  {
+    "rule_id": "A1-3-guide-has-fee-2020-109",
+    "item_id": "A1-3",
+    "type": "content_presence",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-3-guide-link-ok",
+    "pass_if_regex_any": [
+      "国办函〔2020〕109号",
+      "信息处理费",
+      "收费"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-3-guide-has-local-2021-25",
+    "item_id": "A1-3",
+    "type": "content_presence",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-3-guide-link-ok",
+    "pass_if_regex_any": [
+      "宿政办发〔2021〕25号",
+      "宿政办发\\s*\\〔?2021\\〕?\\s*25号"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-3-guide-has-local-2021-21",
+    "item_id": "A1-3",
+    "type": "content_presence",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-3-guide-link-ok",
+    "pass_if_regex_any": [
+      "宿政办函〔2021〕21号",
+      "宿政办函\\s*\\〔?2021\\〕?\\s*21号"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-4-report-exists",
+    "item_id": "A1-4",
+    "type": "existence",
+    "deduct_if_fail": 2.0,
+    "cap_deduction": 2.0,
+    "locate": {
+      "keywords_any": [
+        "政府信息公开工作年度报告",
+        "政府信息公开年度报告",
+        "信息公开年度报告"
+      ],
+      "year_policy": "last_year"
+    },
+    "pass_if_found": true,
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "未公开扣2分。"
+  },
+  {
+    "rule_id": "A1-4-report-before-0331",
+    "item_id": "A1-4",
+    "type": "deadline",
+    "deduct_if_fail": 1.0,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-4-report-exists",
+    "deadline_mmdd": "03-31",
+    "date_fields_any": [
+      "发布日期",
+      "发文日期",
+      "更新时间"
+    ],
+    "on_missing_date": "UNCERTAIN",
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "未在3月31日前发布上年度报告扣1分；日期取不到不自动扣。"
+  },
+  {
+    "rule_id": "A1-4-report-dup-over-50",
+    "item_id": "A1-4",
+    "type": "similarity_optional",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 2.0,
+    "depends_on_rule": "A1-4-report-exists",
+    "similarity_threshold": 0.5,
+    "compare_with": "previous_year_report",
+    "auto_deduct": false,
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "重复率>50%建议先出UNCERTAIN或人工复核；如你们已接入文本比对再开启自动扣分。"
+  },
+  {
+    "rule_id": "A1-4-report-data-anomaly",
+    "item_id": "A1-4",
+    "type": "anomaly_optional",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 2.0,
+    "auto_deduct": false,
+    "on_fetch_error": "UNCERTAIN",
+    "notes": "数据严重不符/未按规定公开：机器侧建议只做异常提示，不自动扣分，避免争议。"
+  },
+  {
+    "rule_id": "A1-5-apply-system-exists",
+    "item_id": "A1-5",
+    "element": "依申请公开工作制度",
+    "type": "existence",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 1.5,
+    "locate": {
+      "keywords_any": [
+        "依申请公开",
+        "申请公开",
+        "政府信息公开申请"
+      ],
+      "sub_keywords_any": [
+        "制度",
+        "工作制度",
+        "办理制度"
+      ]
+    },
+    "pass_if_found": true,
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-5-apply-flowchart-exists",
+    "item_id": "A1-5",
+    "element": "依申请公开流程图",
+    "type": "presence_any",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 1.5,
+    "locate": {
+      "keywords_any": [
+        "依申请公开",
+        "政府信息公开申请"
+      ],
+      "sub_keywords_any": [
+        "流程图",
+        "办理流程",
+        "流程"
+      ]
+    },
+    "pass_if_regex_any": [
+      "流程图",
+      "办理流程"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  },
+  {
+    "rule_id": "A1-5-apply-form-download",
+    "item_id": "A1-5",
+    "element": "依申请公开表格下载",
+    "type": "download_link",
+    "deduct_if_fail": 0.5,
+    "cap_deduction": 1.5,
+    "locate": {
+      "keywords_any": [
+        "依申请公开",
+        "政府信息公开申请"
+      ],
+      "sub_keywords_any": [
+        "申请表",
+        "表格下载",
+        "下载",
+        ".doc",
+        ".docx",
+        ".xls",
+        ".xlsx",
+        ".pdf"
+      ]
+    },
+    "pass_if_has_attachment_ext_any": [
+      ".doc",
+      ".docx",
+      ".xls",
+      ".xlsx",
+      ".pdf"
+    ],
+    "on_fetch_error": "UNCERTAIN"
+  }
+]
